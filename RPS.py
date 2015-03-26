@@ -24,12 +24,12 @@ def play():
             if turn == "Scissors":
                 turn = 3
             else:
-                print "please eneter one of the provided choices"
+                print "please enter one of the provided choices"
         print "you threw ", names[turn]
-        info["all"].append(turn)
         compTurn = computerTurn(info)
         print "the computer threw ", names[compTurn]
         result = win(turn, compTurn)
+        info["all"].append(turn)
         stats = showStats(stats, result)
         play = raw_input("do you want to play again?(y/n)")=="y"
 
@@ -52,8 +52,10 @@ def computerTurn(info):
     numberPapers = len([item for item in info["all"] if item ==2])
     numberScissors = len([item for item in info["all"] if item == 3])
     total = len(info["all"])
-    return rand1_3(float(numberRocks)/total, float(numberPapers)/total, float(numberScissors)/total)
-
+    if total != 0:
+        return rand1_3(float(numberRocks)/total, float(numberPapers)/total, float(numberScissors)/total)
+    else:
+        return rand1_3(.33, .33, .33)
 def toBeat(turn):
     if turn == 1:
         return 2
